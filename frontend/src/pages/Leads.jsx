@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Search, Users, Sparkles, TrendingUp, Plus } from 'lucide-react';
-import { getLeads, getAnalytics } from '../api/leads';
+import { Search, Users, Sparkles, TrendingUp, Plus, Pencil, Trash2 } from 'lucide-react';
+import { getLeads, getAnalytics, deleteLead } from '../api/leads';
 import StatusPill from '../components/StatusPill';
 import LeadDetailDrawer from '../components/LeadDetailDrawer';
 import AddLeadModal from '../components/AddLeadModal';
@@ -39,7 +39,7 @@ export default function Leads() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(fetchLeads, 300); // debounce search
+    const timer = setTimeout(fetchLeads, 300);
     return () => clearTimeout(timer);
   }, [fetchLeads]);
 
@@ -52,6 +52,13 @@ export default function Leads() {
     fetchAnalytics();
   };
 
+  const handleQuickDelete = async (e, leadId, leadName) => {
+    e.stopPropagation();
+    if (!window.confirm(`Delete ${leadName}? This can't be undone.`)) return;
+    await deleteLead(leadId);
+    handleLeadUpdated();
+  };
+
   const newThisWeek = leads.filter((l) => {
     const created = new Date(l.createdAt);
     const weekAgo = new Date();
@@ -61,7 +68,6 @@ export default function Leads() {
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
-            {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display text-2xl font-semibold text-ink">Leads</h1>
@@ -78,7 +84,6 @@ export default function Leads() {
         </button>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <StatCard
           icon={Users}
@@ -100,7 +105,6 @@ export default function Leads() {
         />
       </div>
 
-      {/* Search + filter */}
       <div className="flex items-center gap-3 mb-4">
         <div className="relative flex-1 max-w-xs">
           <Search
@@ -126,7 +130,6 @@ export default function Leads() {
         </select>
       </div>
 
-      {/* Table */}
       <div className="bg-surface border border-border rounded-xl overflow-hidden">
         <table className="w-full text-sm">
           <thead>
@@ -136,18 +139,19 @@ export default function Leads() {
               <th className="text-left font-medium text-ink-soft px-4 py-3">Source</th>
               <th className="text-left font-medium text-ink-soft px-4 py-3">Status</th>
               <th className="text-left font-medium text-ink-soft px-4 py-3">Received</th>
+              <th className="text-right font-medium text-ink-soft px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={5} className="text-center py-10 text-ink-soft text-sm">
+                <td colSpan={6} className="text-center py-10 text-ink-soft text-sm">
                   Loading leads...
                 </td>
               </tr>
             ) : leads.length === 0 ? (
               <tr>
-                <td colSpan={5} className="text-center py-14">
+                <td colSpan={6} className="text-center py-14">
                   <div className="flex flex-col items-center gap-2">
                     <Plus size={22} className="text-ink-soft" />
                     <p className="text-sm text-ink font-medium">No leads yet</p>
@@ -173,6 +177,27 @@ export default function Leads() {
                   <td className="px-4 py-3 text-ink-soft font-mono text-xs">
                     {new Date(lead.createdAt).toLocaleDateString()}
                   </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center justify-end gap-1">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedLeadId(lead._id);
+                        }}
+                        title="Edit lead"
+                        className="p-1.5 rounded-lg text-ink-soft hover:bg-brand-soft hover:text-brand transition"
+                      >
+                        <Pencil size={15} />
+                      </button>
+                      <button
+                        onClick={(e) => handleQuickDelete(e, lead._id, lead.name)}
+                        title="Delete lead"
+                        className="p-1.5 rounded-lg text-ink-soft hover:bg-coral/10 hover:text-coral transition"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))
             )}
@@ -180,7 +205,7 @@ export default function Leads() {
         </table>
       </div>
 
-            {selectedLeadId && (
+      {selectedLeadId && (
         <LeadDetailDrawer
           leadId={selectedLeadId}
           onClose={() => setSelectedLeadId(null)}

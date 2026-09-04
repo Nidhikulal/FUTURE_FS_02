@@ -9,8 +9,8 @@ const statusColors = {
   converted: '#0BC5B4',
 };
 
-// One distinct solid color per bar, cycled if there are more sources than colors
-const sourcePalette = ['#818CF8', '#EAB308', '#EA580C', '#22C55E'];
+// One distinct solid color per bar — 6 colors to match all possible sources
+const sourcePalette = ['#38BDF8', '#F59E0B', '#EA580C', '#22C55E', '#8B5CF6', '#EC4899'];
 
 export default function Analytics() {
   const [data, setData] = useState(null);
@@ -105,12 +105,16 @@ export default function Analytics() {
           {sourceData.length === 0 ? (
             <EmptyChart />
           ) : (
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={sourceData}>
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={sourceData} margin={{ bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E7E9F3" vertical={false} />
                 <XAxis
                   dataKey="source"
-                  tick={{ fontSize: 11, fill: '#6B7089', fontFamily: 'Inter' }}
+                  interval={0}
+                  angle={-30}
+                  textAnchor="end"
+                  height={50}
+                  tick={{ fontSize: 10, fill: '#6B7089', fontFamily: 'Inter' }}
                   axisLine={{ stroke: '#E7E9F3' }}
                   tickLine={false}
                 />
@@ -129,7 +133,7 @@ export default function Analytics() {
                     fontFamily: 'Inter, sans-serif',
                   }}
                 />
-                <Bar dataKey="count" radius={[6, 6, 0, 0]} barSize={36}>
+                <Bar dataKey="count" radius={[6, 6, 0, 0]} barSize={28}>
                   {sourceData.map((entry, i) => (
                     <Cell key={i} fill={entry.color} />
                   ))}

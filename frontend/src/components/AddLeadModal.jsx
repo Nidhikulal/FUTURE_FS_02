@@ -8,7 +8,7 @@ export default function AddLeadModal({ onClose, onCreated }) {
     email: '',
     phone: '',
     message: '',
-    source: 'Contact Form',
+    source: '',
     status: 'new',
     followUpDate: '',
   });
@@ -101,12 +101,14 @@ export default function AddLeadModal({ onClose, onCreated }) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Source</label>
-              <select
+                            <select
                 name="source"
+                required
                 value={form.source}
                 onChange={handleChange}
                 className={fieldClass}
               >
+                <option value="" disabled>Select source</option>
                 <option value="Contact Form">Contact Form</option>
                 <option value="Referral">Referral</option>
                 <option value="Ad">Ad</option>
