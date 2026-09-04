@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// In production (Vercel), this comes from the VITE_API_URL environment variable
+// set in the Vercel dashboard. Locally, it falls back to your backend running on port 5000.
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
