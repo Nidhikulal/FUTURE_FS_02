@@ -1,19 +1,21 @@
 import axios from 'axios';
 
-// In production (Vercel), this comes from the VITE_API_URL environment variable
-// set in the Vercel dashboard. Locally, it falls back to your backend running on port 5000.
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Use the same host as the frontend.
+// Vite will proxy /api requests to the backend running on port 5000.
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// Automatically attach the admin's JWT (if present) to every outgoing request
+// Automatically attach the admin's JWT
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('crm_token');
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
@@ -26,6 +28,7 @@ api.interceptors.response.use(
       localStorage.removeItem('crm_email');
       window.location.href = '/login';
     }
+
     return Promise.reject(error);
   }
 );
