@@ -13,8 +13,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB (cached — safe to call on every serverless invocation)
-connectDB();
+// Every request waits here until MongoDB is actually connected.
+// This is the fix for "buffering timed out" errors — on a cold start,
+// requests no longer race ahead of the database connection.
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(503).json({ error: 'Database connection failed, please try again' });
+  }
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
