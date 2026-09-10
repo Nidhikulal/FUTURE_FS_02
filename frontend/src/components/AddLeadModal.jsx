@@ -39,10 +39,10 @@ export default function AddLeadModal({ onClose, onCreated }) {
   const labelClass = 'block text-xs font-medium text-ink-soft mb-1.5';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       <div className="absolute inset-0 bg-ink/30 backdrop-blur-[2px]" onClick={onClose} />
 
-      <div className="relative w-full max-w-2xl bg-surface rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-2xl bg-surface rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 pt-6">
           <h2 className="font-display text-xl font-semibold text-ink">Add a lead</h2>
           <button
@@ -59,8 +59,8 @@ export default function AddLeadModal({ onClose, onCreated }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          <div className="grid grid-cols-3 gap-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className={labelClass}>Name</label>
               <input
@@ -92,16 +92,15 @@ export default function AddLeadModal({ onClose, onCreated }) {
                 value={form.phone}
                 onChange={handleChange}
                 
-                
                 className={fieldClass}
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Source</label>
-                            <select
+              <select
                 name="source"
                 required
                 value={form.source}

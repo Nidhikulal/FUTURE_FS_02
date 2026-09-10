@@ -67,8 +67,8 @@ export default function Leads() {
   }).length;
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 className="font-display text-2xl font-semibold text-ink">Leads</h1>
           <p className="text-sm text-ink-soft mt-0.5">
@@ -77,14 +77,14 @@ export default function Leads() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 bg-brand hover:bg-brand/90 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition"
+          className="flex items-center justify-center gap-1.5 bg-brand hover:bg-brand/90 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition sm:w-auto"
         >
           <Plus size={16} />
           Add lead
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatCard
           icon={Users}
           bg="bg-vivid-violet"
@@ -105,8 +105,8 @@ export default function Leads() {
         />
       </div>
 
-      <div className="flex items-center gap-3 mb-4">
-        <div className="relative flex-1 max-w-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+        <div className="relative flex-1 sm:max-w-xs">
           <Search
             size={16}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft"
@@ -130,8 +130,8 @@ export default function Leads() {
         </select>
       </div>
 
-      <div className="bg-surface border border-border rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-surface border border-border rounded-xl overflow-x-auto">
+        <table className="w-full text-sm min-w-[640px]">
           <thead>
             <tr className="border-b border-border bg-bg/60">
               <th className="text-left font-medium text-ink-soft px-4 py-3">Name</th>

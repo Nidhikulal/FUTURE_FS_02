@@ -9,7 +9,6 @@ const statusColors = {
   converted: '#0BC5B4',
 };
 
-// One distinct solid color per bar — 6 colors to match all possible sources
 const sourcePalette = ['#38BDF8', '#F59E0B', '#EA580C', '#22C55E', '#8B5CF6', '#EC4899'];
 
 export default function Analytics() {
@@ -21,7 +20,7 @@ export default function Analytics() {
 
   if (!data) {
     return (
-      <div className="p-8 max-w-6xl mx-auto">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
         <p className="text-sm text-ink-soft">Loading analytics...</p>
       </div>
     );
@@ -42,7 +41,7 @@ export default function Analytics() {
   }));
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
       <div className="mb-6">
         <h1 className="font-display text-2xl font-semibold text-ink">Analytics</h1>
         <p className="text-sm text-ink-soft mt-0.5">
@@ -50,13 +49,13 @@ export default function Analytics() {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatCard icon={Users} label="Total leads" value={data.total} bg="bg-vivid-violet" />
         <StatCard icon={CheckCircle2} label="Converted" value={converted} bg="bg-vivid-teal" />
         <StatCard icon={TrendingUp} label="Conversion rate" value={`${data.conversionRate}%`} bg="bg-vivid-orange" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="bg-surface border border-border rounded-xl p-5">
           <p className="text-sm font-medium text-ink mb-4">Status breakdown</p>
           {pieData.length === 0 ? (

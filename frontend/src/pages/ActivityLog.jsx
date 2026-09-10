@@ -20,7 +20,7 @@ export default function ActivityLog() {
   }, []);
 
   return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto">
       <div className="mb-6">
         <h1 className="font-display text-2xl font-semibold text-ink">Activity Log</h1>
         <p className="text-sm text-ink-soft mt-0.5">
