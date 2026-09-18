@@ -1,6 +1,6 @@
-# Client Lead Management System (Mini CRM)
+# Client Lead Management System 
 
-A simple CRM to manage leads coming from a website contact form — view leads, update their status, add follow-up notes, and track everything from a secure admin dashboard.
+A simple CRM to manage and track leads efficiently — add leads manually, update their status, add follow-up notes and dates, and manage everything from a secure admin dashboard.
 
 **Live site:** https://future-fs-02-s61n-one.vercel.app
 
@@ -18,7 +18,6 @@ Built for a full-stack task: create a system where a business can view leads fro
 - Search and filter leads by name, email, or status
 - Analytics: total leads, conversion rate, status and source breakdown charts
 - Activity log of every action (lead created, status changed, note added)
-- A demo contact form to simulate real leads coming in from a website
 
 ## Tech Stack
 
@@ -36,7 +35,6 @@ Built for a full-stack task: create a system where a business can view leads fro
 mini-crm/
 ├── backend/              # Express API + MongoDB models
 ├── frontend/             # React admin dashboard
-├── demo-contact-form/    # Standalone HTML form to simulate a website contact form
 └── README.md
 ```
 
@@ -109,9 +107,7 @@ The app will be running at `http://localhost:5173`.
 
 Open `http://localhost:5173` in your browser and log in using the `ADMIN_EMAIL` and `ADMIN_PASSWORD` you set in the backend's `.env` file.
 
-### Step 5 — (Optional) Test with the demo contact form
 
-Open `demo-contact-form/index.html` directly in your browser — no server needed for this file itself. Submitting it sends a real lead to your running backend, so you'll see it appear on the dashboard right away, simulating how a real website's contact form would feed leads into this CRM.
 
 ## Demo Login (for the live deployed site)
 
